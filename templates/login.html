@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+</head>
+<body>
+    <h2>Login with API Key</h2>
+    <form action="{{ url_for('login') }}" method="post">
+        <label for="client_key">Client Key:</label>
+        <input type="text" id="client_key" name="client_key" required>
+        <br>
+        <label for="secret_key">Secret Key:</label>
+        <input type="password" id="secret_key" name="secret_key" required>
+        <br>
+        <input type="submit" value="Login">
+    </form>
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <ul>
+          {% for message in messages %}
+            <li>{{ message }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
+</body>
+</html>

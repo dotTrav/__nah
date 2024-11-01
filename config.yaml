@@ -1,0 +1,37 @@
+host: "https://192.168.5.215"           # The base host
+api_uri_prefix: "/api/1.0"              # The URI prefix
+client_id: "1bad1213db8f4a169b6a7e3702cb069f"
+client_secret: "545aa3b94c1c4a2ea0a387ba87b5e51f_572aa6ed76db46cd8cd1120f330aab82"
+ssl_verification: False  # Set to False if you want SSL to be insensitive
+required_fields:
+  - name
+csv_mappings:
+  object_type: "ObjectType"
+  name: "Name"
+  customer: "ParentCustomer"
+  business_contact: "Buisness Contact"
+  emergency_contact: "Emergency Contact"
+  technical_contact: "Techical Contact"
+  security_contact: "Security Contact"
+  address: "Address"
+  latitude_longitude: "Latitude/Longitude"
+  building: "Building/Location/Room/Rack"
+  environment: "Environment"
+  sensitivity: "Sensitivity"
+  classification: "Classification"
+  appcomps: "PrimaryApplication"
+  support_contract: "Support Contract"
+  application_tier: "ApplicationTier"
+  fun_stuff: "FunStuff"
+  build_custom: "BuildCustom"
+
+
+custom_fields:
+  device:
+    fun_stuff: "FunStuff"
+  building:
+    build_custom: "BuildCustom"
+  application:
+    build_custom: "BuildCustom"
+  customer:
+    build_custom: "BuildCustom"

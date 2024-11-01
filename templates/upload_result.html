@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Result</title>
+</head>
+<body>
+    <h1>Upload Result</h1>
+
+    <h2>Successfully Imported Records</h2>
+    <ul>
+        {% for record in imported %}
+            <li>{{ record.name }} ({{ record.object_type }})</li>
+        {% endfor %}
+    </ul>
+
+    <h2>Failed Imports</h2>
+    <ul>
+        {% for error in errors %}
+            <li>{{ error.name }} ({{ error.object_type }}) - Error: {{ error.error }}</li>
+        {% endfor %}
+    </ul>
+
+    <a href="{{ url_for('upload_form') }}">Upload another file</a>
+</body>
+</html>
