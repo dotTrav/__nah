@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Comparison of CSV and Existing Data</title>
+    <style>
+        table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .new-row { background-color: #eaf4ff; }
+        .existing-row { background-color: #fff7e6; }
+    </style>
+</head>
+<body>
+    <h2>Comparison of CSV Data with Existing Device42 Data</h2>
+    <form action="{{ url_for('confirm_upload') }}" method="post">
+        <table>
+            <thead>
+                <tr>
+                    <th>Select</th>
+                    <th>Name</th>
+                    <!-- Headers for CSV fields, excluding "ObjectType" -->
+                    {% for key in comparison_data[0].csv_data.keys() if key != 'ObjectType' %}
+                    <th>{{ key }}</th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in comparison_data %}
+                <!-- Row for New Data -->
+                <tr class="new-row">
+                    <td rowspan="2">
+                        {{ item.post_data | tojson }}
+                        <input type="checkbox" name="selected_rows" value="{{ item.post_data | tojson }}">
+                    </td>
+                    <td rowspan="2">{{ item.name }}</td>
+                    <!-- Display New Data (CSV), excluding "ObjectType" -->
+                    {% for key, value in item.csv_data.items() if key != 'ObjectType' %}
+                    <td>{{ value }}</td>
+                    {% endfor %}
+                </tr>
+                
+                <!-- Row for Existing Data -->
+                <tr class="existing-row">
+                    <!-- Display Existing Data (Device42), matching the CSV keys, excluding "ObjectType" -->
+                    {% for key in item.csv_data.keys() if key != 'ObjectType' %}
+                    <td>{% if item.existing_data %}{{ item.existing_data.get(key, 'N/A') }}{% else %}N/A{% endif %}</td>
+                    {% endfor %}
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <button type="submit">Upload Selected</button>
+    </form>
+</body>
+</html>

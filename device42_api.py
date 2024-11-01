@@ -43,6 +43,21 @@ class Device42API:
         else:
             raise Exception(f"Error fetching token: {response.status_code} - {response.text}")
 
+    def get_headers(self):
+        """Construct the headers required for authenticated API calls."""
+        return {
+            'Authorization': f"Bearer {self.token}",
+            'Content-Type': 'application/json'
+        }
+
+    def check_existing(self, name):
+        """Check if an object with the given name already exists."""
+        endpoint = f"{self.host}{self.api_uri_prefix}/devices/name/{name}/"
+        response = requests.get(endpoint, headers=self.get_headers(), params={"name": name}, verify=self.ssl_verification)
+        if response.status_code == 200:
+            return response.json()
+        return None
+
     def get_endpoint_for_object_type(self, object_type):
         """Return the correct API endpoint based on the object type."""
         endpoints = {
@@ -98,9 +113,6 @@ class Device42API:
 
         # Step 1: Send the standard fields to the device endpoint
         standard_fields = {field: value for field, value in devices[0].items() if field in self.csv_mappings.keys()}
-#        print("WHAT", standard_fields)
-#        print("device fields", devices[0].items())
-#        print("mapping",self.csv_mappings.values())
         response = requests.post(endpoint, data=standard_fields, headers=headers, verify=self.ssl_verification)
         if response.status_code == 200:
             # Object (device, customer, etc.) created or updated successfully
