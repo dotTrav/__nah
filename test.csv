@@ -1,12 +1,17 @@
-ObjectType,Name,ParentCustomer,Buisness Contact,Emergency Contact,Techical Contact,Security Contact,Address,Latitude/Longitude,Building/Location/Room/Rack,Environment,Sensitivity Classification,PrimaryApplication,Support Contract,ApplicationTier,FunStuff,BuildCustom
-Customer,ABC Partner - ABC,1NY Platform,John Cena,Lee King,NA,Barb Dwyer,NA,NA,NA,NA,NA,NA,NA,NA,,098
-Building,ABC OfficeBuilding,ABC Partner - ABC,John Cena,Lee King,NA,Barb Dwyer,"1600 Pennsylvania Avenue NW, Washington, DC 20500","38.89763661638912, -77.03649759304636",NA,NA,NA,NA,NA,NA,,123456
-Building,XYZ OfficeBuilding,ABC Partner - ABC,John Cena,Lee King,NA,Barb Dwyer,"1600 Pennsylvania Avenue NW, Washington, DC 20500","38.89763661638912, -77.03649759304636",NA,NA,NA,NA,NA,NA,,654321
-Device,Server1,ABC Partner - ABC,Ty Prater,NA,Chris P Bacon,NA,NA,NA,ABC OfficeBuilding,Production,PII,Exchange,Microsoft,Tier 0 -Buisness Critical,Test-1,
-Device,Server2,ABC Partner - ABC,Ty Prater,NA,Chris P Bacon,NA,NA,NA,ABC OfficeBuilding,Production,PII,Exchange,Microsoft,Tier 0 -Buisness Critical,Test-2,
-Device,Server3,ABC Partner - ABC,Ty Prater,NA,Chris P Bacon,NA,NA,NA,ABC OfficeBuilding,Production,PII,Exchange,Microsoft,Tier 0 -Buisness Critical,Test-3,
-Device,Server4,ABC Partner - ABC,Ty Prater,NA,Chris P Bacon,NA,NA,NA,ABC OfficeBuilding,Production,PII,Exchange,Microsoft,Tier 0 -Buisness Critical,Test-4,
-Application,Exchange,ABC Partner - ABC,Ty Prater,NA,Chris P Bacon,NA,NA,NA,NA,Production,PII,NA,Microsoft,Tier 0 -Buisness Critical,,789
-Device,Server5,ABC Partner - ABC,Ty Prater,NA,Chris P Bacon,NA,NA,NA,ABC OfficeBuilding,Production,PII,Exchange,Microsoft,Tier 0 -Buisness Critical,Test-5,
-Device,Server10,ABC Partner - ABC,Ty Prater,NA,Chris P Bacon,NA,NA,NA,ABC OfficeBuilding,Production,PII,Exchange,Microsoft,Tier 0 -Buisness Critical,,
-Device,Server11,ABC Partner - ABC,Ty Prater,NA,Chris P Bacon,NA,NA,NA,ABC OfficeBuilding,Production,PII,Exchange,Microsoft,Tier 0 -Buisness Critical,,
+ObjectType,Name,ParentCustomer,Business Contact,Emergency Contact,Techical Contact,Security Contact,Address,Latitude,Longitude,Device Type,Device SubType,Building/Location/Room/Rack,Environment,Sensitivity Classification,PrimaryApplication,Support Contract,ApplicationTier,FunStuff,BuildCustom
+Customer,XYZ Partner - ABC,1NY Platform,John Cena,Lee King,NA,Barb Dwyer,NA,NA,,,,NA,NA,NA,NA,NA,NA,,98
+Customer,ABC Partner - ABC,1NY Platform,John Cena,Lee King,NA,Barb Dwyer,NA,NA,,,,NA,NA,NA,NA,NA,NA,,98
+Customer,HIJK Partner - ABC,1NY Platform,John Cena,Lee King,NA,Barb Dwyer,NA,NA,,,,NA,NA,NA,NA,NA,NA,,98
+Building,LBJ OfficeBuilding,ABC Partner - ABC,John Cena,Lee King,NA,Barb Dwyer,"1600 Pennsylvania Avenue NW, Washington, DC 20500",38.89763662,-77.03649759,,,NA,NA,NA,NA,NA,NA,,123456
+Building,ABC OfficeBuilding,ABC Partner - ABC,John Cena,Lee King,NA,Barb Dwyer,"1600 Pennsylvania Avenue NW, Washington, DC 20500",38.89763662,-77.03649759,,,NA,NA,NA,NA,NA,NA,,123456
+Building,XYZ OfficeBuilding,ABC Partner - ABC,John Cena,Lee King,NA,Barb Dwyer,"1600 Pennsylvania Avenue NW, Washington, DC 20500",38.89763662,-77.03649759,,,NA,NA,NA,NA,NA,NA,,654321
+Application,DataDog,XYZ Partner - ABC,Ty Prater,NA,Chris P Bacon,NA,NA,NA,,,,NA,Production,PII,NA,Microsoft,Tier 0 -Buisness Critical,,789
+Application,IIS,XYZ Partner - ABC,Ty Prater,NA,Chris P Bacon,NA,NA,NA,,,,NA,Production,PII,NA,Microsoft,Tier 0 -Buisness Critical,,789
+Application,Exchange,ABC Partner - ABC,Ty Prater,NA,Chris P Bacon,NA,NA,NA,,,,NA,Production,PII,NA,Microsoft,Tier 0 -Buisness Critical,,789
+Device,Server1,ABC Partner - ABC,Ty Prater,NA,Chris P Bacon,NA,NA,NA,,physical,rackable,XYZ OfficeBuilding,Production,PII,Exchange,Microsoft,Tier 0 -Buisness Critical,Test-1,
+Device,Server2,ABC Partner - ABC,Ty Prater,NA,Chris P Bacon,NA,NA,NA,,physical,rackable,XYZ OfficeBuilding,Production,PII,Exchange,Microsoft,Tier 0 -Buisness Critical,Test-2,
+Device,Server3,ABC Partner - ABC,Ty Prater,NA,Chris P Bacon,NA,NA,NA,,physical,rackable,XYZ OfficeBuilding,Production,PII,Exchange,Microsoft,Tier 0 -Buisness Critical,Test-3,
+Device,Server4,ABC Partner - ABC,Ty Prater,NA,Chris P Bacon,NA,NA,NA,,physical,rackable,ABC OfficeBuilding,Production,PII,Exchange,Microsoft,Tier 0 -Buisness Critical,Test-4,
+Device,Server5,ABC Partner - ABC,Ty Prater,NA,Chris P Bacon,NA,NA,NA,,physical,rackable,ABC OfficeBuilding,Production,PII,Exchange,Microsoft,Tier 0 -Buisness Critical,Test-5,
+Device,rrr,XYZ Partner - ABC,Ty Prater,NA,Chris P Bacon,NA,NA,NA,,physical,rackable,ABC OfficeBuilding,Production,PII,IIS,Microsoft,Tier 0 -Buisness Critical,,
+Device,Server10,XYZ Partner - ABC,Ty Prater,NA,Chris P Bacon,NA,NA,NA,,physical,rackable,XYZ OfficeBuilding,Production,PII,IIS,Microsoft,Tier 0 -Buisness Critical,,

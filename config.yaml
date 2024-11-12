@@ -9,14 +9,17 @@ csv_mappings:
   object_type: "ObjectType"
   name: "Name"
   customer: "ParentCustomer"
-  business_contact: "Buisness Contact"
+  business_contact: "Business Contact"
   emergency_contact: "Emergency Contact"
-  technical_contact: "Techical Contact"
+  technical_contact: "Technical Contact"
   security_contact: "Security Contact"
   address: "Address"
-  latitude_longitude: "Latitude/Longitude"
+  latitude: "Latitude"
+  longitude: "Longitude"
   building: "Building/Location/Room/Rack"
-  environment: "Environment"
+  type: "Device Type"
+  device_sub_type: "Device SubType"
+  service_level: "Environment"
   sensitivity: "Sensitivity"
   classification: "Classification"
   appcomps: "PrimaryApplication"
@@ -28,10 +31,21 @@ csv_mappings:
 
 custom_fields:
   device:
+    sensitivity: "Sensitivity"
+    technical_contact: "Technical Contact"
+    business_contact: "Business Contact"
     fun_stuff: "FunStuff"
-  building:
-    build_custom: "BuildCustom"
   application:
     build_custom: "BuildCustom"
+    business_contact: "Business Contact"
+    technical_contact: "Technical Contact"
+  building:
+    build_custom: "BuildCustom"
+    emergency_contact: "Emergency Contact"
+    business_contact: "Business Contact"
+    security_contact: "Security Contact"
   customer:
     build_custom: "BuildCustom"
+    emergency_contact: "Emergency Contact"
+    business_contact: "Business Contact"
+    security_contact: "Security Contact"

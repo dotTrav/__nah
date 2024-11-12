@@ -3,6 +3,7 @@ from flask import Flask, request, render_template, redirect, url_for, flash, ses
 from werkzeug.utils import secure_filename
 import os
 import csv
+import urllib.parse
 from device42_api import Device42API
 
 # Initialize the Flask app
@@ -51,21 +52,20 @@ def upload_file():
             csv_reader = csv.DictReader(csv_file)
             for row in csv_reader:
                 name = row.get('Name')
-                existing_data = device42_api.check_existing(name)
-
+                obj_type = row.get('ObjectType')
+                existing_data = device42_api.check_existing(name, obj_type)
                 # Map existing_data to CSV field names based on csv_mappings
                 mapped_existing_data = {}
                 if existing_data:
+                    print(existing_data)
                     for api_field, csv_field in device42_api.csv_mappings.items():
-                        mapped_existing_data[csv_field] = existing_data.get(api_field, 'N/A')
+                        mapped_existing_data[csv_field] = existing_data['data'].get(api_field, 'N/A')
 
-                mapped_new_data = {}
-                for api_field, csv_field in device42_api.csv_mappings.items():
-                    mapped_new_data[api_field] = row.get(csv_field, 'N/A')
-
+                new = json.dumps(row)
+                new2 = urllib.parse.quote(new)
                 comparison_data.append({
                     "csv_data": row,
-                    "post_data": mapped_new_data,
+                    "post_data": new2,
                     "existing_data": mapped_existing_data,
                     "name": name
                 })
@@ -79,15 +79,25 @@ def upload_file():
 
 @app.route('/confirm_upload', methods=['POST'])
 def confirm_upload():
-    selected_rows = request.form.getlist('selected_rows')
     device42_api = Device42API('/app/config.yaml')
 
-    for row_data in selected_rows:
-        # Parse the row data (assuming it's in JSON format from the form)
-        csv_data = json.loads(row_data)
-
-        # Import each selected row
-        device42_api.import_from_csv([csv_data])  # Process selected rows only
+    # Iterate over selected checkboxes by row index
+    for row_index in request.form.getlist('selected_rows'):
+        # Access the hidden field corresponding to the row index
+        encoded_row_data = request.form.get(f'csv_data_{row_index}')
+        row_data = urllib.parse.unquote(encoded_row_data)
+        print(row_data)
+        try:
+            print("try")
+            # Decode JSON data for each selected row
+            csv_data = json.loads(row_data)
+            print("json")
+            device42_api.import_from_csv([csv_data])
+            print("import")
+        except json.JSONDecodeError as e:
+            print("except")
+            flash(f"Error decoding row {row_index}: {e}")
+            return redirect(url_for('upload_form'))
 
     flash('Selected records uploaded successfully')
     return redirect(url_for('upload_form'))

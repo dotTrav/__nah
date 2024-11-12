@@ -50,13 +50,132 @@ class Device42API:
             'Content-Type': 'application/json'
         }
 
-    def check_existing(self, name):
-        """Check if an object with the given name already exists."""
-        endpoint = f"{self.host}{self.api_uri_prefix}/devices/name/{name}/"
-        response = requests.get(endpoint, headers=self.get_headers(), params={"name": name}, verify=self.ssl_verification)
+    def device_id_by_name(self, name):
+        """Get id of a device with the given name exists."""
+        url = f"{self.host}{self.api_uri_prefix}/devices/"
+        params = {"name": name}
+        response = requests.get(url, headers=self.get_headers(), params=params, verify=self.ssl_verification)
         if response.status_code == 200:
-            return response.json()
+            data = response.json()
+            res = {}
+            for obj in data['Devices']:
+                if obj.get('name') == name:
+                    if 'device_id' in obj:
+                        return obj['device_id']
+                    else:
+                        return None
         return None
+        # return self._process_response(response, "device")
+
+    def building_id_by_name(self, name):
+        """Get id of a building with the given name exists."""
+        url = f"{self.host}{self.api_uri_prefix}/buildings/"
+        params = {"name": name}
+        response = requests.get(url, headers=self.get_headers(), params=params, verify=self.ssl_verification)
+        if response.status_code == 200:
+            data = response.json()
+            for obj in data['buildings']:
+                if obj.get('name') == name:
+                    if 'building_id' in obj:
+                        return obj['building_id']
+                    else:
+                        return None
+        return None
+
+    def application_id_by_name(self, name):
+        """Get id of an application with the given name exists."""
+        url = f"{self.host}{self.api_uri_prefix}/appcomps/"
+        params = {"name": name}
+        response = requests.get(url, headers=self.get_headers(), params=params, verify=self.ssl_verification)
+        if response.status_code == 200:
+            data = response.json()
+            for obj in data['appcomps']:
+                if obj.get('name') == name:
+                    if 'appcomp_id' in obj:
+                        return obj['appcomp_id']
+                    else:
+                        return None
+        return None
+
+    #Customers is different than the other check by name functions it returns a list of customers without filtering
+    def customer_id_by_name(self, name):
+        """Get id of a customer with the given name exists."""
+        url = f"{self.host}{self.api_uri_prefix}/customers/"
+        params = {"name": name}
+        response = requests.get(url, headers=self.get_headers(), params=params, verify=self.ssl_verification)
+        if response.status_code == 200:
+            data = response.json()
+            custs = data['Customers']
+            for obj in custs:
+                if obj.get('name') == name:
+                    if 'id' in obj:
+                        return obj['id']
+                    else:
+                        return None
+        return None
+
+    def get_device_by_id(self, device_id):
+        """Check if a device with the given ID exists."""
+        url = f"{self.host}{self.api_uri_prefix}/devices/{device_id}/"
+        response = requests.get(url, headers=self.get_headers(), verify=self.ssl_verification)
+        return self._process_response(response, "device")
+
+    def get_building_by_id(self, building_id):
+        """Check if a building with the given ID exists."""
+        url = f"{self.host}{self.api_uri_prefix}/buildings/{building_id}/"
+        response = requests.get(url, headers=self.get_headers(), verify=self.ssl_verification)
+        return self._process_response(response, "building")
+
+    def get_application_by_id(self, application_id):
+        """Check if an application with the given ID exists."""
+        url = f"{self.host}{self.api_uri_prefix}/appcomps/{application_id}/"
+        response = requests.get(url, headers=self.get_headers(), verify=self.ssl_verification)
+        return self._process_response(response, "application")
+
+    def get_customer_by_id(self, customer_id):
+        """Check if a customer with the given ID exists."""
+        url = f"{self.host}{self.api_uri_prefix}/customers/{customer_id}/"
+        response = requests.get(url, headers=self.get_headers(), verify=self.ssl_verification)
+        return self._process_response(response, "customer")
+
+    def _process_response(self, response, obj_type):
+        """Process the API response and return data if it exists."""
+        if response.status_code == 200:
+            data = response.json()
+            if data:  # Adjust based on API response structure
+                val = {"type": obj_type, "data": data}
+                return val
+        return None
+
+    def check_existing(self, name, object_type):
+        """Check if an object with the given name exists in Device42 for multiple object types."""
+        if object_type == "Device":
+            id = self.device_id_by_name(name)
+            if id is not None:
+                return self.get_device_by_id(id)
+            else:
+                return {"type": object_type, "data": {}}
+        elif object_type == "Building":
+            id = self.building_id_by_name(name)
+            if id is not None:
+                return self.get_building_by_id(id)
+            else:
+                return {"type": object_type, "data": {}}
+        elif object_type == "Application":
+            id = self.application_id_by_name(name)
+            if id is not None:
+                return self.get_application_by_id(id)
+            else:
+                return {"type": object_type, "data": {}}
+        elif object_type == "Customer":
+            id = self.customer_id_by_name(name)
+            if id is not None:
+                return self.get_customer_by_id(id)
+            else:
+                return {"type": object_type, "data": {}}
+        else:
+            return None
+
 
     def get_endpoint_for_object_type(self, object_type):
         """Return the correct API endpoint based on the object type."""

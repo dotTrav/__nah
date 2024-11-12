@@ -36,8 +36,9 @@
                 <!-- Row for New Data -->
                 <tr class="new-row">
                     <td rowspan="2">
-                        {{ item.post_data | tojson }}
-                        <input type="checkbox" name="selected_rows" value="{{ item.post_data | tojson }}">
+                        <input type="checkbox" name="selected_rows" value="{{ loop.index }}" id="select_{{ loop.index }}">
+                        <!-- Hidden field storing JSON data tied to row index -->
+                        <input type="hidden" name="csv_data_{{ loop.index }}" value="{{ item.post_data }}">
                     </td>
                     <td rowspan="2">{{ item.name }}</td>
                     <!-- Display New Data (CSV), excluding "ObjectType" -->
